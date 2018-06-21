@@ -1,0 +1,40 @@
+import React from 'react';
+import CountUp from 'react-countup';
+import { Card, Row, Col, Icon } from 'antd';
+
+const { Meta } = Card;
+class MyFund extends React.Component {
+    CountUp(){
+        let imgSrc = ["balance1","balance2"];
+        let imgName = ["可用资金","冻结资金"];
+        let count = ["1379","768"];
+        let cu = imgSrc.map(function(item,index){
+            return(
+                <Col md={8} key={item}>
+                    <Card style={{cursor:'pointer', marginBottom:16}}
+                          actions={[<Icon type="info-circle-o" />, <Icon type="ellipsis" />]}>
+                        <Meta
+                            style={{fontSize:30}}
+                            avatar={<img src={require('../imgs/'+item+'.png')} style={{padding:5, width:70, marginRight:30}} alt=""/>}
+                            title={imgName[index]}
+                            description={<CountUp start={0} end={count[index]} duration={2.75}/>}
+                        />
+                    </Card>
+                </Col>
+            )
+        });
+        return cu;
+	}
+	
+	render() {
+		return (
+		<div>
+			<Row gutter={20}>
+				{this.CountUp()}
+			</Row>
+		</div>
+		);
+	}
+}
+
+export default MyFund;
