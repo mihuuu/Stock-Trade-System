@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import myLogo from '../imgs/money.png'
-// import './App.less'
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -36,7 +35,7 @@ class SiderMenu extends Component {
         </div>
 
         <Menu
-          theme="dark"
+          theme="light"
           defaultSelectedKeys={['1']}
           mode="inline"
         >
@@ -61,7 +60,9 @@ class SiderMenu extends Component {
             <Menu.Item key="/app/mystock">
               <Link to='/app/mystock'><span>持有股票</span></Link>
             </Menu.Item>
-            
+            <Menu.Item key="/app/changepwd">
+              <Link to='/app/changpwd'><span>修改密码</span></Link>
+            </Menu.Item>
           </SubMenu>
           <SubMenu
             key="sub2"
@@ -78,21 +79,10 @@ class SiderMenu extends Component {
               </Link>
             </Menu.Item>
           </SubMenu>
-
-          <SubMenu
-            key="sub3"
-            title={<span><Icon type="setting" /><span>我的信息</span></span>}
-          >
-            <Menu.Item key="/app/mycommand">
-              <Link to='/app/mycommand'><span>我的指令</span></Link>
-            </Menu.Item>
-            <Menu.Item key="/app/myremind">
-              <Link to='/app/myremind/item'><span>我的提醒</span></Link>
-            </Menu.Item>
-            <Menu.Item key="/app/changepwd">
-              <Link to='/app/changpwd'><span>修改密码</span></Link>
-            </Menu.Item>
-          </SubMenu>
+          <Menu.Item key="7">
+            <Icon type="setting" />
+            <span>设置</span>
+          </Menu.Item>
         </Menu>
       </Sider>
     );
@@ -100,4 +90,3 @@ class SiderMenu extends Component {
 }
 
 export default SiderMenu;
-

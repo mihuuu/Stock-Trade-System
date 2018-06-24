@@ -20,6 +20,60 @@ class TransactionForm extends React.Component {
 			// To disabled submit button at the beginning.
 			this.props.form.validateFields();
 		}
+    handleBlur(){
+      this.props.form.validateFields((err, values) => {
+        let form=this.props.form
+        let value=values.stockCode
+
+      /*如果没有写code的话,就提示输入code(自带功能)
+      如果写了code的话,先看看sessionStorage里面有没有值,
+        如果有的话,就提取该值
+        如果没有的话,就根据该code去fetch结果
+          如果得到的是不存在该code的话,就提示输入正确的code
+          如果得到了对应的价格的话,在placeholder里填入对应值*/
+        if (value) {// has a value
+          let prices=JSON.parse(sessionStorage.getItem('buy_price'))
+          if((prices)!=null&&prices['price']!=null){
+              let price=prices['price']
+              this.setState({
+                price:" (recommended price:"+price+")"
+              })
+          }
+          else{
+            fetch('http://127.0.0.1:8080/publish/code_to_name_price.json')
+            .then(res=>res.json())
+            .then(res=>{
+              if(res['code']==200){
+                this.setState({
+                  price:" (recommended price:"+res['data']['price']+")"
+                })
+                if(prices==null){
+                  let code_price={}
+                  code_price[value]=res['data']['price']
+                  prices=[code_price,]
+                  sessionStorage.setItem('buy_price',JSON.stringify(prices))
+                }
+                else{
+                  let code_price={}
+                  code_price[value]=res['data']['price']
+                  prices.push(code_price)
+                  sessionStorage.setItem('buy_price',JSON.stringify(prices))
+                }
+                 form.validateFields(['stockCode'], { force: true });
+              }
+              else{
+                console.log('Please enter a correct code!')
+              }
+            })
+
+          }
+        } else {
+          /*如果没写code的话,不做处理*/
+        }
+      })
+
+    }
+
 
 	handleSubmit = (e) => {
 		e.preventDefault();
@@ -32,7 +86,7 @@ class TransactionForm extends React.Component {
         let stock_code=values.stockCode
         let sell_price=values.sellPrice
         let sell_number=values.sellNumber
-        //console.log(username)
+        // console.log(username)
         console.log(stock_code)
         console.log(sell_price)
         console.log(sell_number)
@@ -54,19 +108,15 @@ class TransactionForm extends React.Component {
         })
         .then(res=>res.json())
         .then(res=>{
-          console.log(res);
-          if(res['succeed']){
-            /*操作成功*/
-            message.success('卖出成功')
-            setTimeout(()=>{
-              window.location.reload()
-            },1000)
-
-          }
-          else{
-            message.error("卖出失败");
-            console.log(res['msg'])
-          }
+          console.log(res)
+          // if(res['code']==200){
+          //   /*操作成功*/
+          //   message.success('卖出成功')
+          // }
+          // else{
+          //   message.error("卖出失败");
+          //   console.log(res['msg'])
+          // }
         })
 			}
 		});
@@ -96,23 +146,16 @@ class TransactionForm extends React.Component {
       callback()
     }
   }
-
-    state = { visible: false }
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  }
-  handleOk = (e) => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-  }
-  handleCancel = (e) => {
-    console.log(e);
-    this.setState({
-      visible: false,
+  handleClick(){
+    Modal.info({
+      title: 'This is a notification message',
+      content: (
+        <div>
+          <p>some messages...some messages...</p>
+          <p>some messages...some messages...</p>
+        </div>
+      ),
+      onOk() {},
     });
   }
 	render() {
@@ -123,7 +166,6 @@ class TransactionForm extends React.Component {
 		const passwordError = isFieldTouched('password') && getFieldError('password');
 
     return (
-      <div>
       <Form layout="horizontal" id="sell_stock_form" style={{marginLeft:50, width:300}} onSubmit={this.handleSubmit}>
         <FormItem
 					validateStatus={userNameError ? 'error' : ''}
@@ -133,7 +175,7 @@ class TransactionForm extends React.Component {
             rules: [{ required: true, message: '请输入股票代码!' },
           {validator:this.validateStockCode}],
           })(
-            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="code" />
+            <Input onBlur={this.handleBlur.bind(this)} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="code" />
           )}
         </FormItem>
         <FormItem
@@ -162,49 +204,14 @@ class TransactionForm extends React.Component {
         <FormItem>
           <Button
             type="primary"
-            htmlType="button"
-            onClick={this.showModal}
+            htmlType="submit"
+            onClick={this.handleClick}
             disabled={hasErrors(getFieldsError())}
           >
             卖出
           </Button>
         </FormItem>
-          <FormItem>
-
-          </FormItem>
       </Form>
-              <Modal
-          title="确认"
-          visible={this.state.visible}
-          footer={null}
-          onCancel={this.handleCancel}
-        >
-        <Form onSubmit={this.handleSubmit.bind(this)}>
-          <p>当前推荐的价格是xxx,请问是否继续当前操作</p>
-
-          <FormItem>
-
-          <Button
-            style={{float:'right'}}
-            type="primary"
-            htmlType="submit"
-            disabled={hasErrors(getFieldsError())}
-          >
-          继续
-          </Button>
-            <Button
-            style={{float:'right',marginRight:20}}
-            type="primary"
-            htmlType="button"
-            onClick={this.handleCancel}
-          >
-          返回
-          </Button>
-
-          </FormItem>
-          </Form>
-        </Modal>
-        </div>
     );
   }
 }

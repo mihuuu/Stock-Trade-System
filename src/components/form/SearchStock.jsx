@@ -1,117 +1,91 @@
-import React from 'react';
-import { Input, Row, Col, Card } from 'antd';
-import ReactEcharts from 'echarts-for-react';
+import React from 'react'
+import {Input, List, Avatar } from 'antd';
+import myLogo from '../imgs/money.png'
 const Search = Input.Search;
 
-class SearchStock extends React.Component {
-    getOption(){
-        let option = {
-            backgroundColor: "#fff",
-            color: ['rgb(216, 151, 235)', 'rgb(246, 152, 153)', 'rgb(100, 234, 145)'],
-            title: [{
-                text: '股票价格/元',
-                left: '2%',
-                top: '6%',
-                textStyle: {
-                    fontWeight:'normal',
-                },
-            }],
-            tooltip: {
-                trigger: 'axis'
-            },
-            grid:{
-                left:'6%',
-                width:'90%',
-            },
-            legend: {
-                //x: 300,
-                top: '7%',
-                right: '3%',
-                textStyle: {
-                    color: 'gray',
-                },
-                data: ['A', 'B', 'C']
-            },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                axisLine:{
-                    lineStyle:{
-                        color:'lightgray',
-                    },
-                },
-                axisLabel:{
-                    color:'gray'
-                },
-                data: ['2011', '2012', '2013', '2014', '2015', '2016', '2017']
-            },
-            yAxis: {
-                min: 0,
-                max: 100,
-                type: 'value',
-                axisLine:{
-                    lineStyle:{
-                        color:'lightgray',
-                    },
-                },
-                axisLabel:{
-                    color:'gray'
-                },
-            },
-            series: [{
-                name: 'A',
-                smooth: true,
-                type: 'line',
-                symbolSize: 8,
-                symbol: 'circle',
-                data: [10, 40, 32, 20, 80, 90, 97]
-            }, {
-                name: 'B',
-                smooth: true,
-                type: 'line',
-                symbolSize: 8,
-                symbol: 'circle',
-                data: [70, 50, 50, 87, 90, 80, 70]
-            },{
-                name: 'C',
-                smooth: true,
-                type: 'line',
-                symbolSize: 8,
-                symbol: 'circle',
-                data: [30, 40, 10, 20, 33, 66, 54]
-            }]
-        };
-        return option;
-	}
-	
-	render() {
-		return (
-			<div>
-				<div>
+const data = [
+  {
+    title: 'Ant Design Title 1',
+  },
+  {
+    title: 'Ant Design Title 2',
+  },
+  {
+    title: 'Ant Design Title 3',
+  },
+  {
+    title: 'Ant Design Title 4',
+  },
+];
+class SearchStock extends React.Component{
+  constructor(){
+    super()
+    this.state={
+      data:[],
+    }
+  }
+
+  handleSearch(value){
+
+    let publish_url='http://192.144.171.192:3000'
+    let code=value
+    let get_url1=publish_url+'/api/stockprice?code='+code+"&mode="+'single'
+    let price;
+
+    let get_url=publish_url+'/api/stockinfo?line='+code
+    console.log(get_url)
+    fetch(get_url)
+    .then(res=>res.json())
+    .then(res=>{
+      let i=0;
+      for(i=0;i<res['list'].length;++i)
+      {
+        let data=this.state.data;
+
+        let one_data={}
+        one_data['title']=res['list'][i]['name']+'('+res['list'][i]['code']+')'
+        data.push(one_data)
+        this.setState({
+          data:data
+        })
+      }
+      console.log('123',res)
+    })
+  }
+  handleClick(value){
+    console.log(value)
+  }
+  render(){
+    return(
+      <div>
 					<Search
 						placeholder="输入股票名字或代码"
-						onSearch={value => console.log(value)}
+						onSearch={this.handleSearch.bind(this)}
 						enterButton
 						style={{ width: 250 }}
 					/>
-				</div>
-				<br/>
-				<div>
-					<Row gutter={16}>
-						<Col md={16}>
-							<Card
-								style={{marginBottom:16}}
-								bodyStyle={{padding: 0,height:'277px',overflow:'hidden'}}>
-								<ReactEcharts
-									option={this.getOption()}
-								/>
-							</Card>
-						</Col>
-					</Row>
-				</div>
-			</div>
-		);
-	}
+          <List
+            itemLayout="horizontal"
+            dataSource={this.state.data}
+            pagination={{
+              onChange:(page)=>{
+                console.log(page)
+              },
+              pageSize:10,
+            }}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar style={{height:48,width:48}} src={myLogo} />}
+                  title={<a href="javascript:;" onClick={this.handleClick.bind(this,item.title)}>{item.title}</a>}
+                  description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                />
+                </List.Item>
+            )}
+          />
+      </div>
+    )
+  }
 }
 
 export default SearchStock;
