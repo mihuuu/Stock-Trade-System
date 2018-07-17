@@ -36,13 +36,13 @@ Here are some screenshots of our project:
 
 * Landing page
 
-![landing](http://github.com/Mihuuu/Stock-Trade-System/raw/master/screensshots/landing.png)
+![landing](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/landing.png)
 
 
 
 * Login
 
-![login](http://github.com/Mihuuu/Stock-Trade-System/raw/master/screensshots/login.png)
+![login](https://github.com/Mihuuu/Stock-Trade-System/blob/master/screenshots/landing.png)
 
 
 
