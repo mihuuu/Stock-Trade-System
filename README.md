@@ -1,4 +1,4 @@
-###Introduction
+### Introduction
 
 This is the final project of our course in ZJU, with the joint effort of 5 groups.
 
@@ -36,7 +36,7 @@ Here are some screenshots of our project:
 
 * Landing page
 
-![landing](screenshots\landing.png)
+![landing]((http://github.com/Mihuuu/Stock-Trade-System/raw/master/screensshots/landing.png)
 
 
 
