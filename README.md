@@ -10,6 +10,8 @@ This project was made with **React.js** (create-react-app) and **ant design**.
 
 
 
+
+
 ### Run the project
 
 If you don't include **node_modules** in your file:
@@ -34,59 +36,59 @@ Here are some screenshots of our project:
 
 * Landing page
 
-![1531804961625](C:\Users\linlin\AppData\Local\Temp\1531804961625.png)
+![landing](screenshots\landing.png)
 
 
 
 * Login
 
-![1531805008076](C:\Users\linlin\AppData\Local\Temp\1531805008076.png)
+![login](screenshots\login.png)
 
 
 
 * Home
 
-![1531805055795](C:\Users\linlin\AppData\Local\Temp\1531805055795.png)
+![home](C:\Users\linlin\Desktop\stock-system-final\screenshots\home.png)
 
 
 
 * My fund
 
-![1531805339381](C:\Users\linlin\AppData\Local\Temp\1531805339381.png)
+![MyFund](C:\Users\linlin\Desktop\stock-system-final\screenshots\MyFund.png)
 
 
 
 * My stock
 
-![1531805314287](C:\Users\linlin\AppData\Local\Temp\1531805314287.png)
+![MyStock](C:\Users\linlin\Desktop\stock-system-final\screenshots\MyStock.png)
 
 
 
 * Search stock
 
-![1531805522499](C:\Users\linlin\AppData\Local\Temp\1531805522499.png)
+![Search](C:\Users\linlin\Desktop\stock-system-final\screenshots\Search.png)
 
 
 
 > Click into the stock to see its K-line chart
 
-![1531805667937](C:\Users\linlin\AppData\Local\Temp\1531805667937.png)
+![Kchart](C:\Users\linlin\Desktop\stock-system-final\screenshots\Kchart.png)
 
 
 
 * Buy stock
 
-![1531805380020](C:\Users\linlin\AppData\Local\Temp\1531805380020.png)
+![BuyStock](C:\Users\linlin\Desktop\stock-system-final\screenshots\BuyStock.png)
 
 
 
 * Sell stock
 
-![1531805421471](C:\Users\linlin\AppData\Local\Temp\1531805421471.png)
+![SellStock](C:\Users\linlin\Desktop\stock-system-final\screenshots\SellStock.png)
 
 
 
 * Transactions
 
-![1531805459934](C:\Users\linlin\AppData\Local\Temp\1531805459934.png)
+![Transcation](C:\Users\linlin\Desktop\stock-system-final\screenshots\Transcation.png)
 
