@@ -9,8 +9,8 @@ Our group develop the front-end interface and interact with the other groups of 
 This project was made with **React.js** (create-react-app) and **ant design**.
 
 
-
-
+<br />
+<br />
 
 ### Run the project
 
@@ -18,7 +18,8 @@ If you don't include **node_modules** in your file:
 
 please first use `npm install` to install all the package independencies.
 
-
+<br />
+<br />
 
 To run the project, use:
 
@@ -42,53 +43,53 @@ Here are some screenshots of our project:
 
 * Login
 
-![login](https://github.com/Mihuuu/Stock-Trade-System/blob/master/screenshots/landing.png)
+![login](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/login.png)
 
 
 
 * Home
 
-![home](C:\Users\linlin\Desktop\stock-system-final\screenshots\home.png)
+![home](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/home.png)
 
 
 
 * My fund
 
-![MyFund](C:\Users\linlin\Desktop\stock-system-final\screenshots\MyFund.png)
+![MyFund](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/MyFund.png)
 
 
 
 * My stock
 
-![MyStock](C:\Users\linlin\Desktop\stock-system-final\screenshots\MyStock.png)
+![MyStock](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/MyStock.png)
 
 
 
 * Search stock
 
-![Search](C:\Users\linlin\Desktop\stock-system-final\screenshots\Search.png)
+![Search](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/Search.png)
 
 
 
 > Click into the stock to see its K-line chart
 
-![Kchart](C:\Users\linlin\Desktop\stock-system-final\screenshots\Kchart.png)
+![Kchart](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/Kchart.png)
 
 
 
 * Buy stock
 
-![BuyStock](C:\Users\linlin\Desktop\stock-system-final\screenshots\BuyStock.png)
+![BuyStock](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/BuyStock.png)
 
 
 
 * Sell stock
 
-![SellStock](C:\Users\linlin\Desktop\stock-system-final\screenshots\SellStock.png)
+![SellStock](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/SellStock.png)
 
 
 
 * Transactions
 
-![Transcation](C:\Users\linlin\Desktop\stock-system-final\screenshots\Transcation.png)
+![Transcation](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/Transcation.png)
 
