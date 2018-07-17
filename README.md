@@ -28,68 +28,71 @@ To run the project, use:
 Then you can see the website at localhost:3000
 
 
-
+<br />
+<br />
 
 
 ### Screenshots
 
 Here are some screenshots of our project:
+<br />
 
 * Landing page
 
 ![landing](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/landing.png)
 
-
+<br />
 
 * Login
 
 ![login](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/login.png)
 
-
+<br />
 
 * Home
 
 ![home](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/home.png)
 
-
+<br />
 
 * My fund
 
 ![MyFund](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/MyFund.png)
 
-
+<br />
 
 * My stock
 
 ![MyStock](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/MyStock.png)
 
-
+<br />
 
 * Search stock
 
 ![Search](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/Search.png)
 
-
+<br />
 
 > Click into the stock to see its K-line chart
 
 ![Kchart](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/Kchart.png)
 
-
+<br />
 
 * Buy stock
 
 ![BuyStock](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/BuyStock.png)
 
-
+<br />
 
 * Sell stock
 
 ![SellStock](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/SellStock.png)
 
-
+<br />
 
 * Transactions
 
 ![Transcation](https://github.com/Mihuuu/Stock-Trade-System/raw/master/screenshots/Transcation.png)
 
+<br />
