@@ -1,4 +1,4 @@
-### Introduction
+## Introduction
 
 This is the final project of our course in ZJU, with the joint effort of 5 groups.
 
@@ -12,7 +12,7 @@ This project was made with **React.js** (create-react-app) and **ant design**.
 <br />
 <br />
 
-### Run the project
+## Run the project
 
 If you don't include **node_modules** in your file:
 
