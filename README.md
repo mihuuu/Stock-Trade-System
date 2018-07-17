@@ -32,7 +32,7 @@ Then you can see the website at localhost:3000
 <br />
 
 
-### Screenshots
+## Screenshots
 
 Here are some screenshots of our project:
 <br />
