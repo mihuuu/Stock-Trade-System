@@ -23,8 +23,20 @@ class MyFund extends React.Component {
           'Authorization': 'Bearer '+token,
           },
       })
-      .then(res=>res.json())
       .then(res=>{
+        if(res['status']==200){
+          return res.json()
+        }
+        else{
+          return 0;
+        }
+
+
+      })
+      .then(res=>{
+        if(res==0){
+          return;
+        }
         // if(res['code'] ==200){
           let new_count=[res['balance_available'],res['balance_unavailable']]
           this.setState({
@@ -33,7 +45,7 @@ class MyFund extends React.Component {
         // }
       })
     }
-    
+
     CountUp(){
         let imgSrc = ["balance1","balance2"];
         let imgName = ["可用资金","冻结资金"];

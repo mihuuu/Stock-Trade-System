@@ -1,31 +1,39 @@
-import React from 'react'
+import React from 'react';
 import Script from 'react-load-script'
 
-
-export default class Test extends React.Component{
+class Candlestick extends React.Component{
   constructor(){
     super()
     this.state={
+      result:{},
       count:0
+
     }
+
+
   }
-  // add_script_lib(src){
-    // const script=document.createElement("script")
-    // script.src=src
-    // document.body.appendChild(script)
-    //
 
-        // method2
-        // const script = document.createElement("script");
-        // script.innerHTML="alert('DidMount');alert($)"
-        // document.body.appendChild(script);
-        // const script = document.createElement("Script");
-        // script.url="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"
-        // document.body.appendChild(script);
+componentDidMount(){
 
-  // }
-  /*将对应index设为1*/
-  handleScriptLoad(index){
+  fetch("http://192.144.171.192:3000/api/stockprice?mode=day&code="+this.props.code)
+  .then(res=>{
+    if(res['status']==200){
+      return res.json()
+    }
+    else{
+      return 0;
+    }
+  })
+  .then(res=>{
+    if(res==0){
+      return ;
+    }
+    this.setState({
+      result:res
+    })
+  })
+}
+  handleScriptLoad(){
     if(this.state.count==29){
       console.log('ok')
 
@@ -35,8 +43,16 @@ export default class Test extends React.Component{
       // script1.innerHTML=`alert('123')`
       // document.body.appendChild(script);
 
+/*如果之前没有id为content的script,就创建一个,并取名,否则不用*/
+      let script;
+      if(document.getElementById('content')==null){
+        script=document.createElement('script');
+        script.id="content"
+      }
+      else{
+        script=document.getElementById('content')
 
-      const script=document.createElement('script');
+      }
       script.innerHTML=`
       var dom = document.getElementById("container");
       var myChart = echarts.init(dom);
@@ -50,7 +66,7 @@ export default class Test extends React.Component{
 
 
 
-      $.ajax({url:"http://192.144.171.192:3000/api/stockprice?mode=day&code=600848",success:function(result){
+      $.ajax({url:"http://192.144.171.192:3000/api/stockprice?mode=day&code=`+this.props.code+`",success:function(result){
       var data0 = splitData(result.data.list);
       console.log(result.data.list);
       // 数据意义：开盘(open)，收盘(close)，最低(lowest)，最高(highest)
@@ -289,11 +305,11 @@ export default class Test extends React.Component{
   }
 
   render(){
-    return (
+
+    return(
+
       <div>
-        <div dangerouslySetInnerHTML={{ __html: "<p>123123</p>"}}></div>
-        <div id="id1"></div>
-         <div id="container" style={{height:600}}></div>
+         <div id="container" style={{height:600,display:this.props.display}}></div>
 
         <Script  onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></Script>
         <Script  onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></Script>
@@ -326,37 +342,10 @@ export default class Test extends React.Component{
         <Script  onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/simplex.js"></Script>
         <Script  onLoad={this.handleScriptLoad.bind(this)} url="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" ></Script>
       </div>
+
     )
   }
-}
 
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/simplex.js"></Script>
-      // <Script url="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" onLoad={this.handleScriptLoad.bind(this)}></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/simplex.js"></Script>
-      // <Script url="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" onLoad={this.handleScriptLoad.bind(this)}></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></Script>
-      // <Script onLoad={this.handleScriptLoad.bind(this)} url="http://echarts.baidu.com/gallery/vendors/simplex.js"></Script>
-      // <Script url="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" onLoad={this.handleScriptLoad.bind(this)}></Script>
+
+}
+export default Candlestick;

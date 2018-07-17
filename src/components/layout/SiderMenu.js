@@ -61,7 +61,7 @@ class SiderMenu extends Component {
             <Menu.Item key="/app/mystock">
               <Link to='/app/mystock'><span>持有股票</span></Link>
             </Menu.Item>
-            
+
           </SubMenu>
           <SubMenu
             key="sub2"
@@ -77,17 +77,19 @@ class SiderMenu extends Component {
                 <span>出售</span>
               </Link>
             </Menu.Item>
+            <Menu.Item key="/app/mycommand">
+              <Link to='/app/mycommand'>
+                <span>交易记录</span>
+              </Link>
+            </Menu.Item>
           </SubMenu>
 
           <SubMenu
             key="sub3"
             title={<span><Icon type="setting" /><span>我的信息</span></span>}
           >
-            <Menu.Item key="/app/mycommand">
-              <Link to='/app/mycommand'><span>我的指令</span></Link>
-            </Menu.Item>
             <Menu.Item key="/app/myremind">
-              <Link to='/app/myremind/item'><span>我的提醒</span></Link>
+              <Link to='/app/myremind/item'><span>消息提醒</span></Link>
             </Menu.Item>
             <Menu.Item key="/app/changepwd">
               <Link to='/app/changpwd'><span>修改密码</span></Link>
@@ -100,4 +102,3 @@ class SiderMenu extends Component {
 }
 
 export default SiderMenu;
-

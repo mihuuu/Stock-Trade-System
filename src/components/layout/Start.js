@@ -21,34 +21,35 @@ class Start extends Component {
       current: e.key,
     });
 	}
-	
+
 	render() {
 		return (
 
 		<div>
-    <Layout class="startLayout" style={{minHeight: '100vh'}}>
+    <Layout className="startLayout" style={{minHeight: '100vh'}}>
       <Header>
-					<Menu 
+					<Menu
 						theme="dark"
 						onClick={this.handleClick}
 						selectedKeys={[this.state.current]}
 						mode="horizontal"
 					>
-						<Menu.Item key="home" style={{float:'left'}}>
+						<Menu.Item key="login" style={{float:'left'}}>
 							<Link to='/login'>
-							<Button type="primary" icon="user" >Login</Button>
+							<Button type="primary" icon="user" >登录</Button>
 							</Link>
 						</Menu.Item>
-						
+
 						<Menu.Item key="home">
-							<Icon type="home" />Home
+							<Icon type="home" />主页
 						</Menu.Item>
 						<Menu.Item key="about">
-							<Icon type="appstore-o" />About
+							<a href="http://45.76.177.131:8080/" target="_blank" rel="noopener noreferrer">
+							<Icon type="appstore-o" />管理</a>
 						</Menu.Item>
 						<Menu.Item key="admin">
-							<a href="http://111.231.75.113:5003/" target="_blank" rel="noopener noreferrer"> 
-							<Icon type="setting" />Admin </a>
+							<a href="http://111.231.75.113:5003/" target="_blank" rel="noopener noreferrer">
+							<Icon type="setting" />账户</a>
 						</Menu.Item>
 					</Menu>
 			</Header>
@@ -69,7 +70,7 @@ class Start extends Component {
 					</div>
 				</Carousel>
 			</Content>
-      
+
     </Layout>
 		</div>
 		)

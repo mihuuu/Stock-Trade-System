@@ -71,7 +71,7 @@ class RemindItem extends React.Component{
   }
   componentDidMount(){
     /*从账户业务那里拿到一组股票代码和提醒价格*/
-    fetch("http://127.0.0.1:8080/account/name_to_code_remindprice.json")
+    fetch("http://47.96.148.130:3000/account/name_to_code_remindprice.json")
     .then(res=>res.json())
     .then(res=>{
       if(res['code']==200){
@@ -84,7 +84,7 @@ class RemindItem extends React.Component{
           stock['remind_price']=res['data'][i].remind_price
 
           /*从网上信息发布那里,通过股票代码获得当前价格*/
-          fetch('http://127.0.0.1:8080/publish/code_to_name_price.json')
+          fetch('http://47.96.148.130:3000/publish/code_to_name_price.json')
           .then(res=>res.json())
           .then(res=>{
             if(res['code']==200){

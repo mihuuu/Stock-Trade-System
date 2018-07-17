@@ -23,18 +23,18 @@ class MyRemind extends React.Component{
 
     return (
       <Layout className="layout">
-        <Header>
           <div className="logo" />
           <Menu
             theme="dark"
             mode="horizontal"
             defaultSelectedKeys={[this.state.pos]}
             style={{ lineHeight: '64px' }}
+
           >
-              <Menu.Item key="1"><Link to="/app/myremind/item">当前提醒项</Link></Menu.Item>
+            <Menu.Item key="1"><Link to="/app/myremind/item">当前提醒项</Link></Menu.Item>
             <Menu.Item key="2"><Link to="/app/myremind/set">设定</Link></Menu.Item>
           </Menu>
-        </Header>
+
         <Switch>
           <Route exact path='/app/myremind/item' component={RemindItem} />
           <Route exact path='/app/myremind/set' component={SetRemind} />

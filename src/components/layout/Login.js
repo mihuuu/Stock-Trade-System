@@ -39,17 +39,6 @@ class NormalLoginForm extends Component {
               console.log('Received values of form: ', values);
 
               //把用户名和密码传递过去,如果返回的data为1,说明登录成功,否则不成功*/
-                // let myHeaders = new Headers({
-                //   // 'Access-Control-Allow-Origin': '*',
-                //   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                //   // 'Content-Type': 'application/json',
-                //   // 'mode':'no-cors'
-                // });
-                // let myHeaders = new Headers({
-                //   "Access-Control-Allow-Origin": "www.XXX.com",
-                //   mode:'no-cors'
-                // });
-                let url='http://127.0.0.1:8080/account/username_pwd.json'
                 let project_url="http://192.144.171.192:3000/api/login"
 
                 fetch(project_url,{
@@ -58,14 +47,12 @@ class NormalLoginForm extends Component {
                     'Content-Type': 'application/json',
                     },
                    body:JSON.stringify({
-                     // user:"201806212226",
-                     // pwd:'123456'
                      user:values.username,
                      pwd:values.password,
                      })
                   })
                 .then(res=>{
-					//console.log(res);
+                  console.log('1',res)
                     if(res.status==200){
                       return res.json()
                     }
@@ -75,35 +62,35 @@ class NormalLoginForm extends Component {
                   })
                 .then(
                     (res)=>{
-						/*error*/
+                      console.log('2',res)
+            						/*error*/
                         if(res==0||res['state_code']==1){
-                          message.error('登录失败')
+                          message.error('登录失败!')
                           return;
                         }
                         /*ok*/
                         console.log(res)
                         localStorage.setItem('token',res['token'])
-                        localStorage.setItem('account_id',res['userInfo']['account_id'])
-    
+                        // localStorage.setItem('account_id',res['userInfo']['account_id'])
+                        localStorage.setItem('userInfo',JSON.stringify(res['userInfo']))
+
                         this.setState({
                             isLoding: true,
                         });
-    
+
                         /*如果记住我,就在localStorage里面设置值*/
-                        if(values.remember==true){
-                          localStorage.setItem('userinfo',JSON.stringify(values));
-                        }
-    
-                        /*无论有没有记住我,都在sessionStorage里面设置值*/
-                        sessionStorage.setItem('userinfo',JSON.stringify(values));
-                        message.success('login successed!'); //成功信息
+                        // if(values.remember==true){
+                        //   localStorage.setItem('userInfo',JSON.stringify(values));
+                        // }
+
+                        message.success('登录成功!'); //成功信息
                         let that = this;
-    
+
                         setTimeout(function() { //延迟进入
                             console.log(values)
                             that.props.history.push({pathname:'/app',state:values});
                         }, 2000);
-                      
+
                   })
           }
       });
@@ -134,12 +121,7 @@ class NormalLoginForm extends Component {
       如果未登录,访问login,不跳转;
                 访问其他,跳转到/login;*/
       //如果已经登录,就跳转到/app
-      if(sessionStorage.getItem('userinfo')!=null||localStorage.getItem('userinfo')!=null){
-        /*确保sessionStorage里面有userinfo*/
-        if(sessionStorage.getItem('userinfo')===null){
-          let tmp=localStorage.getItem('userinfo')
-          sessionStorage.setItem('userinfo',tmp)
-        }
+      if(localStorage.getItem('userInfo')!=null){
         return <Redirect to='/app'></Redirect>
       }
 

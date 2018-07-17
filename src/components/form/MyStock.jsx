@@ -11,9 +11,13 @@ const columns = [{
   dataIndex: 'name',
   render: text => <a href="javascript:;">{text}</a>,
 }, {
-  title: '持有股数',
-  dataIndex: 'number',
-  sorter: (a, b) => a.number - b.number,
+  title: '持有股数(可用)',
+  dataIndex: 'number1',
+  // sorter: (a, b) => a.number - b.number,
+}, {
+  title: '持有股数(冻结)',
+  dataIndex: 'number2',
+  // sorter: (a, b) => a.number - b.number,
 }, {
   title: '当前价格',
   dataIndex: 'price',
@@ -85,30 +89,56 @@ class MyStock extends React.Component {
           'Authorization': 'Bearer '+token,
           },
       })
-      .then(res=>res.json())
       .then(res=>{
+        if(res['status']==200){
+          return res.json()
+        }
+        else{
+          return 0;
+        }
+      })
+      .then(res=>{
+
         console.log(res)
+        if(res['status']==0){
+          return;
+        }
         let i =0;
         for(i=0;i<res.length;++i)
         {
           let key=i;
           let code=res[i]['stockCode']
-          let number=res[i]['sharesNum']
+
+          let number1=res[i]['sharesNumAvailable'];
+          let number2=res[i]['sharesNumUnavailable']
           let cost=res[i]['averageCost']
 
           let publish_url='http://192.144.171.192:3000'
           let get_url=publish_url+'/api/stockinfo?line='+code
+          /*通过股票代码获得股票名称*/
           console.log(get_url)
           fetch(get_url)
-          .then(res=>res.json())
           .then(res=>{
+            if(res['status']==200){
+              return res.json()
+            }
+            else{
+              console.log(res)
+              return 0
+            }
+          })
+          .then(res=>{
+            if(res==0){
+              return;
+            }
             let i=0;
             for(i=0;i<res['list'].length;++i)
             {
               let stock={}
               stock['key']=key;
               stock['code']=code
-              stock['number']=number
+              stock['number1']=number1
+              stock['number2']=number2
               stock['cost']=cost
               stock['name']=res['list'][i]['name']
 
@@ -116,12 +146,26 @@ class MyStock extends React.Component {
               let get_url1=publish_url+'/api/stockprice?code='+code+"&mode="+'single'
               /*price*/
               fetch(get_url1)
-              .then(res=>res.json())
               .then(res=>{
+                if(res['status']==200){
+                  return res.json()
+                }
+                else{
+                  console.log('cannot get price',res)
+                  return 0;
+                }})
+              .then(res=>{
+                console.log('code->price:',res)
+                if(res==0){
+                  return;
+                }
                 if(res['data']['state_code']!=1){
                   stock['price']=res['data']['list']['price']
+                  // stock['income']=stock['price']*stock['number']%100*0.01+"%"
+                  // stock['income']=(Math.random()*10)-5+"%"
+
                 }
-                console.log(res)
+                console.log('getting price',res)
                 let data=this.state.data;
                 data.push(stock)
                 this.setState({

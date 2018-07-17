@@ -11,7 +11,7 @@ const {Meta} = Card;
 class Welcome extends React.Component {
 	render() {
 		return (
-			<Row class="welcome" gutter={36} style={{ margin: '50px', textAlign:'center'}}>
+			<Row className="welcome" gutter={36} style={{ margin: '50px', textAlign:'center'}}>
 				<Col span={8}>
 				<Link to='/app/myfund'>
 					<Card
@@ -20,21 +20,21 @@ class Welcome extends React.Component {
 					cover={<img alt="pic1" src={pic1}/>}
 					>
 					<Meta
-						title="Wealth"
+						title="我的资金"
 						//description="Good luck with stock trading!"
 					/>
 					</Card>
 				</Link>
 			</Col>
 				<Col span={8}>
-					<Link to='/app/search'>
+					<Link to='/app/mystock'>
 					<Card
 					hoverable
 					//style={{ width: 100 }}
 					cover={<img alt="pic" src={pic2}/>}
 					>
 					<Meta
-						title="Stock"
+						title="我的股票"
 						//description="Good luck with stock trading!"
 					/>
 					</Card>
@@ -48,15 +48,15 @@ class Welcome extends React.Component {
 					cover={<img alt="pic3" src={pic3}/>}
 					>
 					<Meta
-						title="Trade"
+						title="我的交易"
 						//description="Good luck with stock trading!"
 					/>
 					</Card>
 					</Link>
 				</Col>
 			</Row>
-			
-			
+
+
 		);
 	}
 }

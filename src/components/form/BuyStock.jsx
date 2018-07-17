@@ -6,11 +6,13 @@ function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
+var central_url='http://95.169.8.179:5000/buy'
 class BuyStockForm extends React.Component {
   constructor(){
     super()
     this.state={
       "price":"",
+      "recommended_price":0,
     }
 
   }
@@ -25,21 +27,18 @@ class BuyStockForm extends React.Component {
 			if (!err) {
 				console.log('Received values of form: ', values);
         /*预备数据*/
-        // let userinfo=JSON.parse(sessionStorage.getItem('userinfo'))
-        // let username=userinfo['username']
-        let account_id=localStorage.getItem('account_id')
+        // let userInfo=JSON.parse(sessionStorage.getItem('userInfo'))
+        // let username=userInfo['username']
+        // let account_id=localStorage.getItem('account_id')
+        let id=JSON.parse(localStorage.getItem('userInfo')).id
+        let account_id=JSON.parse(localStorage.getItem('userInfo')).account_id
+
         let stock_code=values.stockCode
         let buy_price=Number(values.buyPrice)
         let buy_number=Number(values.buyNumber)
-        // console.log(username)
-        console.log(stock_code)
-        console.log(buy_price)
-        console.log(buy_number)
-
 
         /*将用户名+股票代码+购买价格+购买数量发送给中央交易系统,如果购买成功,则返回1,否则失败(不知道到底传给我什么)*/
         // fetch('http://127.0.0.1:8080/central/name_code_price_amount_buy.json')
-        let central_url='http://10.189.143.181:5000/buy'
         fetch(central_url,{
           method:"POST",
           headers:{
@@ -55,24 +54,28 @@ class BuyStockForm extends React.Component {
         .then(res=>{
           console.log(res);
           if(res.status==200){
-            message.success('操作成功')
-
             // setTimeout(()=>{
             //   window.location.reload()
             // },5000)
             return res.json()
           }
           else{
-            message.error('操作失败')
+            message.error('API获取失败')
             return 0;
           }
 
         })
         .then(res=>{
-          if(res!=0){
           console.log(res)
-
+          if(res.succeed){
+            message.success('操作成功!')
+          } else{
+            message.error(res['error_text'])
           }
+          setTimeout(()=>{
+            this.handleCancel()
+          },2000)
+
 
         })
 
@@ -103,11 +106,50 @@ class BuyStockForm extends React.Component {
       callback()
     }
   }
-    showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  }
+  showModal = () => {
+		this.props.form.validateFields((err, values) => {
+
+    /*先通过股票代码拿到股票当前价格,
+      如果返回错误,说明不能点击,
+      如果正确,就setState*/
+        /*通过股票代码获得股票的价格*/
+          let publish_url='http://192.144.171.192:3000'
+          let code=values.stockCode
+          let get_url1=publish_url+'/api/stockprice?code='+code+"&mode="+'single'
+          /*price*/
+          fetch(get_url1)
+          .then(res=>{
+            if(res['status']==200){
+              return res.json()
+            }
+            else{
+              console.log(res)
+              return false;
+              return 0;
+            }})
+          .then(res=>{
+            if(res==0){
+              return;
+            }
+            if(res['data']['state_code']!=1){
+              let price=res['data']['list']['price']
+              this.setState({
+                "recommended_price":price,
+              })
+
+              // stock['income']=stock['price']*stock['number']-
+
+            }
+            console.log(res)
+            this.setState({
+              visible: true,
+            });
+
+          })
+
+
+    })
+    }
   handleOk = (e) => {
     console.log(e);
     this.setState({
@@ -178,13 +220,13 @@ class BuyStockForm extends React.Component {
         </FormItem>
       </Form>
       <Modal
-          title="确认"
+          title="购买股票"
           visible={this.state.visible}
           footer={null}
           onCancel={this.handleCancel}
         >
         <Form onSubmit={this.handleSubmit.bind(this)}>
-          <p>当前推荐的价格是xxx,请问是否继续当前操作</p>
+          <p>{this.state.recommended_price!=0&&<span>当前推荐的价格是{this.state.recommended_price},</span>}请问是否继续当前操作</p>
 
           <FormItem>
             <Button
@@ -197,7 +239,7 @@ class BuyStockForm extends React.Component {
             </Button>
             <Button
             style={{float:'right',marginRight:20}}
-            type="primary"
+            type="default"
             htmlType="button"
             onClick={this.handleCancel}
           >
